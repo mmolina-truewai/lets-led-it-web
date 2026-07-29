@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LETSLEDIT — Bring Ideas to Light</title>
+  <meta name="description" content="Alquiler de pantallas LED con servicio completo para eventos, ferias y congresos en Europa y América.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ─── BASE ──────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --y:#00C2FF; --bk:#111; --w:#fff; --mw:1160px; --gp:#FF00A8; --gv:#7A2BFF; --gc:#00C2FF; }
+    html  { scroll-behavior:smooth; }
+    body  { font-family:'Exo 2',system-ui,sans-serif; background:#0a0a0a; color:var(--w); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    /* ─── GRADIENT UTILITIES ─────────────────────────────────────────────── */
+    .grad-text {
+      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .grad-bg { background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc)); }
+    a     { color:inherit; text-decoration:none; }
+    img   { display:block; width:100%; height:100%; object-fit:cover; }
+    .C    { max-width:var(--mw); margin:0 auto; padding:0 32px; }
+
+    /* ─── NAV ───────────────────────────────────────────────────────────── */
+    #nav {
+      position:fixed; top:0; left:0; right:0; z-index:900;
+      height:66px; display:flex; align-items:center;
+      padding:0 32px;
+      transition:background .3s, backdrop-filter .3s;
+    }
+    #nav.solid {
+      background:rgba(8,8,8,.92);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .nav-logo { display:flex; align-items:center; gap:10px; margin-right:auto; }
+    .nav-logo svg { flex-shrink:0; }
+    .wm { font-size:17px; font-weight:400; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.85); }
+    .wm b { font-weight:800; color:var(--w); letter-spacing:2px; }
+    .wm-tag { font-size:9px; font-weight:300; letter-spacing:4px; color:rgba(255,255,255,.28); text-transform:uppercase; margin-top:2px; line-height:1; }
+
+    /* ─── LANG DROPDOWN ────────────────────────────────────────────────────── */
+    .lang-sel { position:relative; }
+    .lang-btn {
+      display:flex; align-items:center; gap:6px;
+      background:transparent; border:1px solid rgba(255,255,255,.2);
+      color:rgba(255,255,255,.65); font-family:inherit; font-size:12px;
+      font-weight:600; padding:7px 13px; border-radius:20px; cursor:pointer;
+      letter-spacing:.05em; transition:all .15s; white-space:nowrap;
+    }
+    .lang-btn:hover { border-color:rgba(255,255,255,.5); color:var(--w); }
+    .lang-btn svg   { flex-shrink:0; }
+    .lang-menu {
+      position:absolute; top:calc(100% + 10px); right:0;
+      background:#1c1c1c; border:1px solid rgba(255,255,255,.11);
+      border-radius:14px; padding:6px; min-width:152px;
+      box-shadow:0 20px 48px rgba(0,0,0,.7);
+      opacity:0; visibility:hidden; transform:translateY(-6px);
+      transition:opacity .18s, transform .18s, visibility .18s;
+      z-index:1001;
+    }
+    .lang-menu.open { opacity:1; visibility:visible; transform:none; }
+    .lang-menu button {
+      display:flex; align-items:center; gap:9px; width:100%;
+      background:transparent; border:none; color:rgba(255,255,255,.55);
+      font-family:inherit; font-size:13px; padding:9px 12px;
+      border-radius:8px; cursor:pointer; text-align:left; transition:all .12s;
+    }
+    .lang-menu button:hover { background:rgba(255,255,255,.07); color:var(--w); }
+    .lang-menu button.on    { color:var(--y); background:rgba(0,194,255,.08); }
+    .lang-flag { font-size:15px; line-height:1; }
+
+    /* Footer compact lang links */
+    .ft-langs { display:flex; gap:14px; align-items:center; }
+    .ft-langs button {
+      background:transparent; border:none; font-family:inherit;
+      font-size:12px; font-weight:600; color:rgba(255,255,255,.28);
+      cursor:pointer; padding:0; letter-spacing:.05em; transition:color .15s;
+    }
+    .ft-langs button:hover { color:rgba(255,255,255,.7); }
+    .ft-langs button.on    { color:var(--y); }
+
+    .nav-cta  {
+      margin-left:12px; background:var(--y); color:var(--bk);
+      font-family:inherit; font-size:13px; font-weight:700;
+      padding:10px 22px; border-radius:6px; border:none; cursor:pointer;
+      transition:opacity .15s; white-space:nowrap;
+    }
+    .nav-cta:hover { opacity:.85; }
+
+    /* ─── BG-SECTION helper ─────────────────────────────────────────────── */
+    /* Every section with a photo bg uses this pattern:
+       - section: position:relative, overflow:hidden, min-height
+       - .ov: absolute overlay (gradient), inset:0, z-index:1
+       - .inner: position:relative, z-index:2 — ALL content goes here   */
+    .bg-sec { position:relative; overflow:hidden; }
+    .bg-sec > img.bg-img {
+      position:absolute; inset:0; z-index:0;
+      width:100%; height:100%; object-fit:cover; object-position:center;
+    }
+    .ov {
+      position:absolute; inset:0; z-index:1;
+      /* default overlay — overridden per section */
+      background:rgba(0,0,0,.78);
+    }
+    .inner { position:relative; z-index:2; }
+
+    /* ─── HERO ──────────────────────────────────────────────────────────── */
+    #hero {
+      min-height:100vh;
+      display:flex; align-items:center;
+    }
+    #hero .ov {
+      background:linear-gradient(135deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.52) 60%,rgba(0,0,0,.72) 100%);
+    }
+    /* ─── HERO CAROUSEL ─────────────────────────────────────────────────── */
+    .hero-carousel { position:absolute; inset:0; z-index:0; }
+    .hero-carousel .hslide {
+      position:absolute; inset:0;
+      opacity:0; transition:opacity 1.4s ease-in-out;
+      will-change:opacity;
+    }
+    .hero-carousel .hslide.active { opacity:1; }
+    .hero-carousel .hslide img {
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      /* subtle Ken Burns on active slide */
+      transform:scale(1); transition:transform 6s ease-out;
+    }
+    .hero-carousel .hslide.active img { transform:scale(1.06); }
+    /* Dot indicators */
+    .hero-dots {
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      z-index:3; display:flex; gap:8px; pointer-events:none;
+    }
+    .hero-dots span {
+      width:6px; height:6px; border-radius:50%;
+      background:rgba(255,255,255,.3);
+      transition:background .3s, transform .3s;
+      pointer-events:all; cursor:pointer;
+    }
+    .hero-dots span.on {
+      background:var(--y); transform:scale(1.35);
+    }
+    /* LED dot grid on top of overlay */
+    #hero .dot-grid {
+      position:absolute; inset:0; z-index:2; pointer-events:none;
+      background-image:radial-gradient(circle,rgba(0,194,255,.05) 1px,transparent 1px);
+      background-size:30px 30px;
+    }
+    #hero .inner { padding:160px 32px 100px; max-width:var(--mw); margin:0 auto; width:100%; }
+    .pill {
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(0,194,255,.3); color:var(--y);
+      font-size:11px; font-weight:600; padding:7px 16px; border-radius:20px;
+      margin-bottom:32px; letter-spacing:.07em; text-transform:uppercase;
+      background:rgba(0,194,255,.07);
+    }
+    .pill-dot { width:5px; height:5px; border-radius:50%; background:var(--y); display:block; }
+    h1 {
+      font-size:clamp(48px,8vw,96px); font-weight:900;
+      line-height:1.0; letter-spacing:-3px; color:var(--w); margin-bottom:28px;
+    }
+    h1 em { font-style:normal; background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-tagline {
+      font-size:13px; font-weight:300; letter-spacing:5px; text-transform:uppercase;
+      color:rgba(255,255,255,.38); margin-bottom:28px; margin-top:-10px;
+    }
+    .hero-sub {
+      font-size:clamp(16px,2vw,20px); font-weight:300;
+      color:rgba(255,255,255,.65); max-width:580px; line-height:1.75; margin-bottom:44px;
+    }
+    .btn-row { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-y {
+      background:var(--y); color:var(--bk); font-family:inherit;
+      font-size:15px; font-weight:800; padding:18px 40px; border-radius:8px;
+      border:none; cursor:pointer; letter-spacing:-.2px; transition:all .15s;
+    }
+    .btn-y:hover { opacity:.87; transform:translateY(-2px); }
+    .btn-ol {
+      background:transparent; color:var(--w); font-family:inherit;
+      font-size:15px; font-weight:400; padding:18px 32px; border-radius:8px;
+      border:1.5px solid rgba(255,255,255,.28); cursor:pointer; transition:all .15s;
+    }
+    .btn-ol:hover { border-color:rgba(255,255,255,.7); }
+    .hero-stats {
+      display:flex; gap:48px; flex-wrap:wrap;
+      margin-top:72px; padding-top:40px;
+      border-top:1px solid rgba(255,255,255,.1);
+    }
+    .hs-val { font-size:34px; font-weight:800; color:#fff; line-height:1; text-shadow:0 2px 18px rgba(0,0,0,.7); }
+    .hs-lbl { font-size:13px; color:rgba(255,255,255,.4); margin-top:5px; }
+
+    /* ─── TRUST ─────────────────────────────────────────────────────────── */
+    #trust { background:var(--y); padding:18px 0; }
+    .trust-row {
+      display:flex; align-items:center; justify-content:center;
+      gap:10px 36px; flex-wrap:wrap;
+    }
+    .ti  { font-size:13px; font-weight:700; color:var(--bk); }
+    .tdt { width:4px; height:4px; border-radius:50%; background:rgba(0,0,0,.25); }
+
+    /* ─── SERVICES ──────────────────────────────────────────────────────── */
+    #services { min-height:auto; }
+    #services .ov {
+      background:linear-gradient(180deg,rgba(5,5,5,.91) 0%,rgba(5,5,5,.84) 100%);
+    }
+    #services .inner { padding:110px 0; }
+    .sec-label {
+      font-size:11px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.1em; margin-bottom:14px; display:block;
+      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    h2 {
+      font-size:clamp(30px,4.5vw,54px); font-weight:800;
+      letter-spacing:-1.5px; line-height:1.1; color:var(--w); margin-bottom:16px;
+    }
+    .sec-sub {
+      font-size:17px; color:rgba(255,255,255,.5);
+      max-width:520px; line-height:1.75; font-weight:300;
+    }
+    .sh { margin-bottom:60px; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .card {
+      background:rgba(15,15,15,.62);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:16px; padding:36px 30px;
+      transition:border-color .2s, transform .2s;
+    }
+    .card:hover {
+      border-color:rgba(122,43,255,.5);
+      box-shadow:0 8px 48px rgba(122,43,255,.18);
+      transform:translateY(-4px);
+    }
+    .card-ico {
+      width:50px; height:50px; border-radius:12px;
+      background:rgba(0,194,255,.08); border:1px solid rgba(0,194,255,.18);
+      display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+    }
+    .card-ico svg { width:22px; height:22px; }
+    .card h3 { font-size:18px; font-weight:700; color:var(--w); margin-bottom:10px; letter-spacing:-.3px; }
+    .card p  { font-size:14px; color:rgba(255,255,255,.5); line-height:1.75; }
+    .tag {
+      display:inline-block; margin-top:18px;
+      font-size:11px; font-weight:700; color:var(--w);
+      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      padding:5px 12px; border-radius:5px; letter-spacing:.04em;
+    }
+
+    /* ─── HOW ───────────────────────────────────────────────────────────── */
+    #how .ov {
+      background:linear-gradient(180deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.85) 100%);
+    }
+    #how .inner { padding:110px 0; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:60px; }
+    .step {
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.08); padding:48px 36px;
+      position:relative; transition:background .2s, border-color .2s;
+    }
+    .step:hover { background:rgba(0,194,255,.04); border-color:rgba(0,194,255,.22); }
+    .step:first-child { border-radius:16px 0 0 16px; }
+    .step:last-child  { border-radius:0 16px 16px 0; }
+    .step-bar {
+      position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--gp),var(--gv),var(--gc)); transform:scaleX(0); transform-origin:left;
+      transition:transform .3s; border-radius:3px 3px 0 0;
+    }
+    .step:hover .step-bar { transform:scaleX(1); }
+    .snum {
+      font-size:68px; font-weight:900; line-height:1; margin-bottom:18px; letter-spacing:-3px;
+      background:linear-gradient(110deg,rgba(255,0,168,.22),rgba(122,43,255,.22),rgba(0,194,255,.22));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .step h3 { font-size:19px; font-weight:700; color:var(--w); margin-bottom:12px; }
+    .step p  { font-size:14px; color:rgba(255,255,255,.45); line-height:1.8; }
+
+    /* ─── GALLERY ───────────────────────────────────────────────────────── */
+    #gallery { background:#0a0a0a; }
+    .gal-head { padding:100px 0 52px; }
+    /* Mosaic: tall left + 2 right */
+    .mosaic {
+      display:grid;
+      grid-template-columns:1.55fr 1fr;
+      grid-template-rows:300px 300px;
+      gap:4px;
+    }
+    .gi { position:relative; overflow:hidden; background:#1a1a1a; }
+    .gi img { transition:transform .6s ease, opacity .3s; opacity:.82; width:100%; height:100%; }
+    .gi:hover img { transform:scale(1.06); opacity:1; }
+    .gi:first-child { grid-row:span 2; }
+    .gi-label {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:48px 20px 16px;
+      background:linear-gradient(0deg,rgba(0,0,0,.72) 0%,transparent 100%);
+      font-size:13px; font-weight:600; color:var(--w);
+      display:flex; align-items:flex-end; gap:8px;
+    }
+    .gi-label::before {
+      content:''; width:6px; height:6px; border-radius:50%;
+      background:var(--y); flex-shrink:0; margin-bottom:2px;
+    }
+    /* Full-width banner */
+    .gal-banner {
+      position:relative; height:360px; overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      margin-top:4px;
+    }
+    .gal-banner img.bg-img { position:absolute; inset:0; }
+    .gal-banner .ov {
+      background:rgba(0,0,0,.58); position:absolute; inset:0; z-index:1;
+    }
+    .gal-banner .inner { z-index:2; text-align:center; }
+    .gal-banner h2 {
+      font-size:clamp(28px,5vw,62px); letter-spacing:-2px;
+      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .gal-banner p  { font-size:17px; color:rgba(255,255,255,.58); margin-top:12px; font-weight:300; }
+    /* Strip */
+    .strip {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:4px; height:280px; margin-top:4px;
+    }
+
+    /* ─── FORM SECTION ──────────────────────────────────────────────────── */
+    #quote .ov {
+      background:linear-gradient(135deg,rgba(0,0,0,.93) 40%,rgba(0,0,0,.75) 100%);
+    }
+    #quote .inner { padding:110px 0; }
+    .form-layout { display:grid; grid-template-columns:1fr 1.45fr; gap:80px; align-items:start; }
+    .form-info h2 { margin-bottom:16px; }
+    .form-info .sec-sub { margin-bottom:44px; }
+    .promises { display:flex; flex-direction:column; gap:26px; }
+    .prom { display:flex; gap:16px; align-items:flex-start; }
+    .prom-ico {
+      width:42px; height:42px; border-radius:9px; flex-shrink:0;
+      background:rgba(0,194,255,.08); border:1px solid rgba(0,194,255,.18);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .prom-ico svg { width:17px; height:17px; }
+    .prom-title { font-size:14px; font-weight:700; color:var(--w); margin-bottom:3px; }
+    .prom-desc  { font-size:13px; color:rgba(255,255,255,.4); line-height:1.6; }
+    /* Form card — light */
+    .fcard {
+      background:rgba(255,255,255,.97); border-radius:20px; padding:44px;
+      box-shadow:0 32px 80px rgba(0,0,0,.55);
+    }
+    .frow { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .fg { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+    .fg.full { grid-column:span 2; }
+    .fg label { font-size:11px; font-weight:700; color:#333; letter-spacing:.04em; text-transform:uppercase; }
+    .fg input, .fg select, .fg textarea {
+      font-family:inherit; font-size:14px; color:#111;
+      background:#f5f5f5; border:1.5px solid transparent;
+      border-radius:8px; padding:13px 16px; outline:none;
+      -webkit-appearance:none; appearance:none; transition:border-color .15s, background .15s;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus {
+      border-color:var(--y); background:#fff;
+    }
+    .fg textarea { resize:vertical; min-height:96px; }
+    .fg select {
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-color:#f5f5f5;
+      background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;
+    }
+    .fsub {
+      width:100%; background:var(--bk); color:var(--y); font-family:inherit;
+      font-size:16px; font-weight:800; padding:20px; border-radius:10px;
+      border:none; cursor:pointer; margin-top:6px; transition:all .15s; letter-spacing:-.2px;
+    }
+    .fsub:hover { background:#1a1a1a; transform:translateY(-2px); }
+    .fnote { text-align:center; font-size:12px; color:#999; margin-top:14px; }
+    .fsuccess {
+      display:none; background:#E8F8EF; border:1px solid #4CAF50;
+      border-radius:10px; padding:24px; text-align:center;
+      color:#2E7D32; font-size:15px; font-weight:600; margin-top:16px;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────────────── */
+    footer {
+      background:#060606; padding:56px 0 28px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .ft { display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:48px; }
+    .fb p { font-size:14px; color:rgba(255,255,255,.3); margin-top:12px; max-width:260px; line-height:1.7; }
+    .fl { display:flex; flex-direction:column; gap:10px; }
+    .fl strong { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.2); margin-bottom:4px; }
+    .fl a { font-size:13px; color:rgba(255,255,255,.4); transition:color .15s; }
+    .fl a:hover { color:var(--w); }
+    .fbot {
+      border-top:1px solid rgba(255,255,255,.06); padding-top:24px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    }
+    .fcopy { font-size:12px; color:rgba(255,255,255,.22); }
+
+    /* ─── REVEAL ────────────────────────────────────────────────────────── */
+    .rv { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+    .rv.vis { opacity:1; transform:none; }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────────────── */
+    @media(max-width:960px){
+      .steps { grid-template-columns:1fr; gap:4px; }
+      .step:first-child { border-radius:16px 16px 0 0; }
+      .step:last-child  { border-radius:0 0 16px 16px; }
+      .mosaic { grid-template-columns:1fr; grid-template-rows:300px 200px 200px; }
+      .gi:first-child { grid-row:span 1; }
+      .strip { height:200px; }
+      .form-layout { grid-template-columns:1fr; gap:40px; }
+    }
+    @media(max-width:640px){
+      /* ── Spacing ── */
+      /* .C solo centra en móvil, el padding horizontal lo damos en cada sección */
+      .C { padding-left:20px; padding-right:20px; }
+      #hero .inner     { padding:110px 20px 64px; }
+      /* Estas secciones usan "inner C" pero el selector de ID anulaba el padding
+         horizontal de .C — lo forzamos aquí con los 20px en cada lado */
+      #services .inner { padding:72px 20px; }
+      #how .inner      { padding:72px 20px; }
+      #quote .inner    { padding:72px 20px; }
+      .gal-head        { padding:64px 20px 32px; }
+
+      /* ── Nav ── */
+      .nav-cta { display:none; }
+      #nav { padding:0 20px; }
+
+      /* ── Typography ── */
+      h1 { font-size:clamp(36px,10vw,48px); letter-spacing:-2px; line-height:1.05; margin-bottom:20px; }
+      h2 { font-size:clamp(26px,7vw,36px); letter-spacing:-1px; }
+      .hero-sub  { font-size:16px; line-height:1.7; margin-bottom:32px; }
+      .sec-sub   { font-size:15px; }
+      .pill      { font-size:9px; padding:6px 11px; letter-spacing:.04em; }
+
+      /* ── Hero buttons — full width & stacked ── */
+      .btn-row   { flex-direction:column; gap:10px; }
+      .btn-y, .btn-ol { width:100%; text-align:center; box-sizing:border-box; padding:16px 20px; }
+
+      /* ── Hero stats — 2×2 grid ── */
+      .hero-stats {
+        display:grid; grid-template-columns:1fr 1fr;
+        gap:16px 24px; margin-top:40px; padding-top:28px;
+      }
+      .hs-val { font-size:28px; }
+
+      /* ── Trust bar — vertical, hide dots ── */
+      .tdt { display:none; }
+      #trust { padding:16px 0; }
+      .trust-row { flex-direction:column; gap:8px; text-align:center; }
+      .ti { font-size:13px; }
+
+      /* ── Cards ── */
+      .sh    { margin-bottom:32px; }
+      .cards { gap:12px; }
+      .card  { padding:26px 20px; }
+      .card h3 { font-size:16px; }
+      .card p  { font-size:13px; }
+
+      /* ── Steps ── */
+      .step  { padding:32px 24px; }
+      .snum  { font-size:50px; margin-bottom:12px; }
+      .step h3 { font-size:17px; }
+
+      /* ── Gallery ── */
+      .mosaic { grid-template-rows:240px 160px 160px; }
+      .gal-banner { height:260px; }
+      .gal-banner h2 { font-size:clamp(22px,6vw,36px); }
+      .strip { grid-template-columns:1fr; height:auto; gap:4px; }
+      .strip .gi { height:160px; }
+
+      /* ── Gallery banner padding (inline style override) ── */
+      .gal-banner .inner { padding:0 20px !important; }
+
+      /* ── Form ── */
+      .form-layout { gap:32px; }
+      .frow  { grid-template-columns:1fr; }
+      .fg.full { grid-column:span 1; }
+      .fcard { padding:28px 20px; }
+      .promises { gap:16px; }
+      .form-info .sec-sub { margin-bottom:28px; font-size:14px; }
+      .prom-ico { width:36px; height:36px; flex-shrink:0; }
+      .prom-title { font-size:13px; }
+      .prom-desc  { font-size:12px; }
+
+      /* ── Footer ── */
+      footer .C { padding-left:20px; padding-right:20px; }
+      .ft   { gap:24px; }
+      .fbot { flex-direction:column; align-items:flex-start; gap:12px; }
+    }
+
+    /* Muy pequeño (≤380px) */
+    @media(max-width:380px){
+      h1 { font-size:34px; }
+      .pill { display:none; } /* en 375px el badge se corta — mejor ocultarlo */
+      #hero .inner { padding-top:100px; padding-bottom:52px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ── NAV (floating, transparent on hero) ──────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-logo">
+    <!-- Pixel matrix icon: 6×6 square, diagonal gradient pink→purple→cyan -->
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px;flex-shrink:0">
+      <circle cx="4" cy="4" r="3.0" fill="#FF00A8"/><circle cx="12" cy="4" r="3.0" fill="#E409B9"/><circle cx="20" cy="4" r="3.0" fill="#CA11CB"/><circle cx="28" cy="4" r="3.0" fill="#AF1ADC"/><circle cx="36" cy="4" r="3.0" fill="#9522EE"/><circle cx="44" cy="4" r="3.0" fill="#7A2BFF"/>
+      <circle cx="4" cy="12" r="3.0" fill="#E409B9"/><circle cx="12" cy="12" r="3.0" fill="#CA11CB"/><circle cx="20" cy="12" r="3.0" fill="#AF1ADC"/><circle cx="28" cy="12" r="3.0" fill="#9522EE"/><circle cx="36" cy="12" r="3.0" fill="#7A2BFF"/><circle cx="44" cy="12" r="3.0" fill="#6249FF"/>
+      <circle cx="4" cy="20" r="3.0" fill="#CA11CB"/><circle cx="12" cy="20" r="3.0" fill="#AF1ADC"/><circle cx="20" cy="20" r="3.0" fill="#9522EE"/><circle cx="28" cy="20" r="3.0" fill="#7A2BFF"/><circle cx="36" cy="20" r="3.0" fill="#6249FF"/><circle cx="44" cy="20" r="3.0" fill="#4967FF"/>
+      <circle cx="4" cy="28" r="3.0" fill="#AF1ADC"/><circle cx="12" cy="28" r="3.0" fill="#9522EE"/><circle cx="20" cy="28" r="3.0" fill="#7A2BFF"/><circle cx="28" cy="28" r="3.0" fill="#6249FF"/><circle cx="36" cy="28" r="3.0" fill="#4967FF"/><circle cx="44" cy="28" r="3.0" fill="#3186FF"/>
+      <circle cx="4" cy="36" r="3.0" fill="#9522EE"/><circle cx="12" cy="36" r="3.0" fill="#7A2BFF"/><circle cx="20" cy="36" r="3.0" fill="#6249FF"/><circle cx="28" cy="36" r="3.0" fill="#4967FF"/><circle cx="36" cy="36" r="3.0" fill="#3186FF"/><circle cx="44" cy="36" r="3.0" fill="#18A4FF"/>
+      <circle cx="4" cy="44" r="3.0" fill="#7A2BFF"/><circle cx="12" cy="44" r="3.0" fill="#6249FF"/><circle cx="20" cy="44" r="3.0" fill="#4967FF"/><circle cx="28" cy="44" r="3.0" fill="#3186FF"/><circle cx="36" cy="44" r="3.0" fill="#18A4FF"/><circle cx="44" cy="44" r="3.0" fill="#00C2FF"/>
+    </svg>
+    <div>
+      <div class="wm">LETS<b>LED</b>IT</div>
+      <div class="wm-tag">Bring Ideas to Light</div>
+    </div>
+  </div>
+  <div class="lang-sel" id="langSel">
+    <button class="lang-btn" id="langBtn" onclick="toggleLangMenu()">
+      <!-- Globe icon -->
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/>
+      </svg>
+      <span id="langCur">ES</span>
+      <!-- Chevron -->
+      <svg width="10" height="7" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1l5 5 5-5"/></svg>
+    </button>
+    <div class="lang-menu" id="langMenu">
+      <button onclick="setLang('es');closeLangMenu()" data-ll="es" class="on"><span class="lang-flag">🇪🇸</span> Español</button>
+      <button onclick="setLang('en');closeLangMenu()" data-ll="en"><span class="lang-flag">🇬🇧</span> English</button>
+      <button onclick="setLang('fr');closeLangMenu()" data-ll="fr"><span class="lang-flag">🇫🇷</span> Français</button>
+      <button onclick="setLang('pt');closeLangMenu()" data-ll="pt"><span class="lang-flag">🇧🇷</span> Português</button>
+      <button onclick="setLang('tr');closeLangMenu()" data-ll="tr"><span class="lang-flag">🇹🇷</span> Türkçe</button>
+    </div>
+  </div>
+  <button class="nav-cta" onclick="go('quote')" data-k="nav_cta">Solicitar presupuesto</button>
+</nav>
+
+<!-- ── HERO (carousel: corporate-first) ─────────────────────────────────────── -->
+<section id="hero" class="bg-sec">
+  <!--
+    Slide order (corporate → feria → gala → entretenimiento):
+    1. Congreso/conferencia con gran LED wall
+    2. Trade show / feria con videowall
+    3. Evento corporativo de gala / lanzamiento
+    4. Concierto / festival (para mostrar cobertura de entretenimiento)
+  -->
+  <div class="hero-carousel" id="hcar">
+    <div class="hslide active">
+      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1920&q=85" alt="Congreso con pantalla LED">
+    </div>
+    <div class="hslide">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&q=85" alt="Feria y exposición con videowall">
+    </div>
+    <div class="hslide">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&q=85" alt="Evento corporativo de gala">
+    </div>
+    <div class="hslide">
+      <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=85" alt="Concierto y festival">
+    </div>
+  </div>
+  <div class="ov"></div>
+  <div class="dot-grid"></div>
+  <div class="hero-dots" id="hdots">
+    <span class="on" onclick="goSlide(0)"></span>
+    <span onclick="goSlide(1)"></span>
+    <span onclick="goSlide(2)"></span>
+    <span onclick="goSlide(3)"></span>
+  </div>
+  <div class="inner">
+    <div class="pill rv"><span class="pill-dot"></span><span data-k="badge">EUROPA · TURQUÍA · AMERICA · SERVICIO COMPLETO</span></div>
+    <h1 class="rv" data-k="h1">Pantallas LED que<br><em>encienden</em><br>cada evento</h1>
+    <div class="rv hero-tagline">— Bring Ideas to Light</div>
+    <p class="hero-sub rv" data-k="sub">Alquiler de pantallas LED con servicio completo para eventos, ferias y congresos. Transporte, instalación y soporte técnico incluidos.</p>
+    <div class="btn-row rv">
+      <button class="btn-y" onclick="go('quote')" data-k="cta1">Solicitar presupuesto</button>
+      <a href="#services" class="btn-ol" data-k="cta2">Ver pantallas</a>
+    </div>
+    <div class="hero-stats rv">
+      <div><div class="hs-val">Indoor</div><div class="hs-lbl" data-k="s1">&amp; Outdoor</div></div>
+      <div><div class="hs-val" data-k="s2a">Full</div><div class="hs-lbl" data-k="s2b">Service</div></div>
+      <div><div class="hs-val">4</div><div class="hs-lbl" data-k="s3">Continentes</div></div>
+      <div><div class="hs-val">24h</div><div class="hs-lbl" data-k="s4">Respuesta</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ─────────────────────────────────────────────────────────────── -->
+<div id="trust">
+  <div class="C trust-row">
+    <span class="ti" data-k="t1">✓ Pantallas Indoor y Outdoor</span>
+    <span class="tdt"></span>
+    <span class="ti" data-k="t2">✓ Transporte e instalación incluidos</span>
+    <span class="tdt"></span>
+    <span class="ti" data-k="t3">✓ Soporte técnico en evento</span>
+    <span class="tdt"></span>
+    <span class="ti" data-k="t4">✓ Europa, Oriente Medio y América</span>
+  </div>
+</div>
+
+<!-- ── SERVICES (photo bg: congreso/evento con pantallas) ───────────────────── -->
+<section id="services" class="bg-sec">
+  <img class="bg-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80" alt="">
+  <div class="ov"></div>
+  <div class="inner C">
+    <div class="sh rv">
+      <span class="sec-label" data-k="srv_l">Nuestras pantallas</span>
+      <h2 data-k="srv_h">Soluciones LED para cada evento</h2>
+      <p class="sec-sub" data-k="srv_s">Alta resolución, brillo adaptable y configuraciones a medida para cualquier formato.</p>
+    </div>
+    <div class="cards">
+      <div class="card rv">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3 data-k="c1h">Pantallas Indoor</h3>
+        <p data-k="c1p">Alta resolución para conferencias, lanzamientos, congresos y eventos corporativos. Pixel pitch fino para cualquier distancia de visión.</p>
+        <span class="tag">P1.2 · P1.9 · P2.5</span>
+      </div>
+      <div class="card rv">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="22" height="14" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3 data-k="c2h">Pantallas Outdoor</h3>
+        <p data-k="c2p">Ultra-luminosas y resistentes a la intemperie para festivales, ferias y espacios públicos. Visibilidad perfecta bajo luz solar directa.</p>
+        <span class="tag">P3.9 · P5 · P6</span>
+      </div>
+      <div class="card rv">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="9" height="9" rx="1.5"/><rect x="13" y="2" width="9" height="9" rx="1.5"/><rect x="2" y="13" width="9" height="9" rx="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5"/></svg></div>
+        <h3 data-k="c3h">Videowalls a Medida</h3>
+        <p data-k="c3p">Paneles modulares en cualquier forma y dimensión. Desde pequeños escenarios hasta configuraciones de arena completa.</p>
+        <span class="tag" data-k="c3t">Formatos custom</span>
+      </div>
+      <div class="card rv">
+        <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3 data-k="c4h">Servicio Completo</h3>
+        <p data-k="c4p">Transporte, montaje, técnico especializado durante el evento y desmontaje posterior. Nos encargamos de todo.</p>
+        <span class="tag" data-k="c4t">Todo incluido</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS (photo bg: crowd/concert) ───────────────────────────────── -->
+<section id="how" class="bg-sec">
+  <img class="bg-img" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80" alt="">
+  <div class="ov"></div>
+  <div class="inner C">
+    <div class="rv">
+      <span class="sec-label" data-k="hw_l">Proceso</span>
+      <h2 data-k="hw_h">Cómo funciona</h2>
+      <p class="sec-sub" data-k="hw_s">De tu primer mensaje a una pantalla en vivo — simple y sin complicaciones.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv">
+        <div class="step-bar"></div>
+        <div class="snum">01</div>
+        <h3 data-k="st1h">Solicita presupuesto</h3>
+        <p data-k="st1p">Rellena el formulario con los detalles de tu evento. Respondemos en menos de 24 horas con una propuesta personalizada.</p>
+      </div>
+      <div class="step rv">
+        <div class="step-bar"></div>
+        <div class="snum">02</div>
+        <h3 data-k="st2h">Planificamos juntos</h3>
+        <p data-k="st2p">Diseñamos la mejor configuración de pantalla para tu espacio, audiencia y objetivos.</p>
+      </div>
+      <div class="step rv">
+        <div class="step-bar"></div>
+        <div class="snum">03</div>
+        <h3 data-k="st3h">Instalamos y damos soporte</h3>
+        <p data-k="st3p">Transporte, instalación y soporte técnico en directo durante todo tu evento. Del montaje al desmontaje.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ───────────────────────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="gal-head C rv">
+    <span class="sec-label" data-k="gl_l">Galería</span>
+    <h2 data-k="gl_h">Pantallas en acción</h2>
+  </div>
+
+  <!-- Mosaic 2-col -->
+  <div class="mosaic">
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=900&q=85" alt="">
+      <div class="gi-label" data-k="g1">Conciertos &amp; Festivales</div>
+    </div>
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=85" alt="">
+      <div class="gi-label" data-k="g2">Eventos Corporativos</div>
+    </div>
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=700&q=85" alt="">
+      <div class="gi-label" data-k="g3">Ferias &amp; Exposiciones</div>
+    </div>
+  </div>
+
+  <!-- Full-width banner -->
+  <div class="gal-banner bg-sec">
+    <img class="bg-img" src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=1800&q=85" alt="">
+    <div class="ov"></div>
+    <div class="inner" style="text-align:center;padding:0 32px;">
+      <h2 class="rv" data-k="gb_h">¿Tu evento es el próximo?</h2>
+      <p class="rv" style="font-size:17px;color:rgba(255,255,255,.55);margin-top:12px;font-weight:300;" data-k="gb_s">Diseñamos la configuración LED perfecta para tu espacio y audiencia.</p>
+      <button class="btn-y rv" style="margin-top:32px;" onclick="go('quote')" data-k="cta1">Solicitar presupuesto</button>
+    </div>
+  </div>
+
+  <!-- Strip 3 col -->
+  <div class="strip">
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=85" alt="">
+      <div class="gi-label" data-k="g4">Congresos</div>
+    </div>
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=85" alt="">
+      <div class="gi-label" data-k="g5">Outdoor &amp; Festivales</div>
+    </div>
+    <div class="gi">
+      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=85" alt="">
+      <div class="gi-label" data-k="g6">Espectáculos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM (photo bg: evento elegante) ─────────────────────────────────────── -->
+<section id="quote" class="bg-sec">
+  <img class="bg-img" src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1600&q=80" alt="">
+  <div class="ov"></div>
+  <div class="inner C">
+    <div class="form-layout">
+      <div class="form-info rv">
+        <span class="sec-label" data-k="fm_l">Presupuesto</span>
+        <h2 data-k="fm_h">Solicita tu presupuesto gratuito</h2>
+        <p class="sec-sub" data-k="fm_s">Cuéntanos tu evento y te respondemos en menos de 24 horas con una propuesta a medida.</p>
+        <div class="promises">
+          <div class="prom">
+            <div class="prom-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="prom-title" data-k="p1h">Respuesta en 24 horas</div><div class="prom-desc" data-k="p1s">Propuesta detallada y personalizada en menos de un día.</div></div>
+          </div>
+          <div class="prom">
+            <div class="prom-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="prom-title" data-k="p2h">Sin compromiso</div><div class="prom-desc" data-k="p2s">Totalmente gratuito, sin ninguna obligación de contratar.</div></div>
+          </div>
+          <div class="prom">
+            <div class="prom-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#00C2FF" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></div>
+            <div><div class="prom-title" data-k="p3h">Europa, Oriente Medio y América</div><div class="prom-desc" data-k="p3s">Norte, Centro y Sur de América. Europa completa. Oriente Medio.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fcard rv">
+        <!-- Registra en formspree.io y reemplaza YOUR_FORM_ID con tu ID -->
+        <form id="qf" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="frow">
+            <div class="fg"><label data-k="fl_name">Nombre completo</label><input type="text" name="name" required data-kp="fp_name"></div>
+            <div class="fg"><label data-k="fl_co">Empresa</label><input type="text" name="company" data-kp="fp_co"></div>
+            <div class="fg"><label data-k="fl_email">Email</label><input type="email" name="email" required data-kp="fp_email"></div>
+            <div class="fg"><label data-k="fl_tel">Teléfono</label><input type="tel" name="phone" data-kp="fp_tel"></div>
+            <div class="fg"><label data-k="fl_ev">Tipo de evento</label><select name="event_type" id="evSel"></select></div>
+            <div class="fg"><label data-k="fl_sz">Tamaño estimado</label><select name="screen_size" id="szSel"></select></div>
+            <div class="fg"><label data-k="fl_date">Fecha del evento</label><input type="date" name="event_date"></div>
+            <div class="fg"><label data-k="fl_loc">Ubicación</label><input type="text" name="location" data-kp="fp_loc"></div>
+            <div class="fg full"><label data-k="fl_msg">Detalles adicionales</label><textarea name="message" data-kp="fp_msg"></textarea></div>
+          </div>
+          <button type="submit" class="fsub" data-k="f_btn">Enviar solicitud de presupuesto</button>
+          <p class="fnote" data-k="f_note">Sin compromiso · Respuesta en 24h · Datos protegidos</p>
+        </form>
+        <div class="fsuccess" id="fOk" data-k="f_ok">¡Gracias! Nos pondremos en contacto en menos de 24 horas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="C">
+    <div class="ft">
+      <div class="fb">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;flex-shrink:0">
+            <circle cx="4" cy="4" r="3.0" fill="#FF00A8"/><circle cx="12" cy="4" r="3.0" fill="#E409B9"/><circle cx="20" cy="4" r="3.0" fill="#CA11CB"/><circle cx="28" cy="4" r="3.0" fill="#AF1ADC"/><circle cx="36" cy="4" r="3.0" fill="#9522EE"/><circle cx="44" cy="4" r="3.0" fill="#7A2BFF"/>
+            <circle cx="4" cy="12" r="3.0" fill="#E409B9"/><circle cx="12" cy="12" r="3.0" fill="#CA11CB"/><circle cx="20" cy="12" r="3.0" fill="#AF1ADC"/><circle cx="28" cy="12" r="3.0" fill="#9522EE"/><circle cx="36" cy="12" r="3.0" fill="#7A2BFF"/><circle cx="44" cy="12" r="3.0" fill="#6249FF"/>
+            <circle cx="4" cy="20" r="3.0" fill="#CA11CB"/><circle cx="12" cy="20" r="3.0" fill="#AF1ADC"/><circle cx="20" cy="20" r="3.0" fill="#9522EE"/><circle cx="28" cy="20" r="3.0" fill="#7A2BFF"/><circle cx="36" cy="20" r="3.0" fill="#6249FF"/><circle cx="44" cy="20" r="3.0" fill="#4967FF"/>
+            <circle cx="4" cy="28" r="3.0" fill="#AF1ADC"/><circle cx="12" cy="28" r="3.0" fill="#9522EE"/><circle cx="20" cy="28" r="3.0" fill="#7A2BFF"/><circle cx="28" cy="28" r="3.0" fill="#6249FF"/><circle cx="36" cy="28" r="3.0" fill="#4967FF"/><circle cx="44" cy="28" r="3.0" fill="#3186FF"/>
+            <circle cx="4" cy="36" r="3.0" fill="#9522EE"/><circle cx="12" cy="36" r="3.0" fill="#7A2BFF"/><circle cx="20" cy="36" r="3.0" fill="#6249FF"/><circle cx="28" cy="36" r="3.0" fill="#4967FF"/><circle cx="36" cy="36" r="3.0" fill="#3186FF"/><circle cx="44" cy="36" r="3.0" fill="#18A4FF"/>
+            <circle cx="4" cy="44" r="3.0" fill="#7A2BFF"/><circle cx="12" cy="44" r="3.0" fill="#6249FF"/><circle cx="20" cy="44" r="3.0" fill="#4967FF"/><circle cx="28" cy="44" r="3.0" fill="#3186FF"/><circle cx="36" cy="44" r="3.0" fill="#18A4FF"/><circle cx="44" cy="44" r="3.0" fill="#00C2FF"/>
+          </svg>
+          <div class="wm" style="font-size:20px;">LETS<b>LED</b>IT</div>
+        </div>
+        <p style="font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.25);font-weight:300;text-transform:uppercase;margin-bottom:8px">Bring Ideas to Light</p>
+        <p data-k="ft_tag">Light up every event. · Ilumina cada evento.</p>
+      </div>
+      <div class="fl">
+        <strong data-k="ft_c">Contacto</strong>
+        <a href="mailto:info@letsledit.com">info@letsledit.com</a>
+        <a href="tel:+34000000000">+34 000 000 000</a>
+      </div>
+      <div class="fl">
+        <strong data-k="ft_s">Síguenos</strong>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div class="fl">
+        <strong data-k="ft_lg">Legal</strong>
+        <a href="#" data-k="ft_pp">Política de privacidad</a>
+        <a href="#" data-k="ft_ck">Política de cookies</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span class="fcopy" data-k="ft_cp">© 2025 LETSLEDIT. Todos los derechos reservados.</span>
+      <div class="ft-langs">
+        <button onclick="setLang('es')" data-fll="es" class="on">ES</button>
+        <button onclick="setLang('en')" data-fll="en">EN</button>
+        <button onclick="setLang('fr')" data-fll="fr">FR</button>
+        <button onclick="setLang('pt')" data-fll="pt">PT</button>
+        <button onclick="setLang('tr')" data-fll="tr">TR</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── TRANSLATIONS ────────────────────────────────────────────────────────── */
+const TX = {
+  es:{
+    nav_cta:"Solicitar presupuesto",
+    badge:"EUROPA · ORIENTE MEDIO · AMERICA · SERVICIO COMPLETO",
+    h1:"Pantallas LED que<br><em>encienden</em><br>cada evento",
+    sub:"Alquiler de pantallas LED con servicio completo para eventos, ferias y congresos. Transporte, instalación y soporte técnico incluidos.",
+    cta1:"Solicitar presupuesto", cta2:"Ver pantallas",
+    s1:"&amp; Outdoor", s2a:"Full", s2b:"Service", s3:"Continentes", s4:"Respuesta",
+    t1:"✓ Pantallas Indoor y Outdoor", t2:"✓ Transporte e instalación incluidos",
+    t3:"✓ Soporte técnico en evento",  t4:"✓ Europa, Oriente Medio y América",
+    srv_l:"Nuestras pantallas", srv_h:"Soluciones LED para cada evento",
+    srv_s:"Alta resolución, brillo adaptable y configuraciones a medida para cualquier formato.",
+    c1h:"Pantallas Indoor", c1p:"Alta resolución para conferencias, lanzamientos, congresos y eventos corporativos. Pixel pitch fino para cualquier distancia de visión.",
+    c2h:"Pantallas Outdoor", c2p:"Ultra-luminosas y resistentes a la intemperie para festivales, ferias y espacios públicos. Visibilidad perfecta bajo luz solar directa.",
+    c3h:"Videowalls a Medida", c3p:"Paneles modulares en cualquier forma y dimensión. Desde pequeños escenarios hasta configuraciones de arena completa.", c3t:"Formatos custom",
+    c4h:"Servicio Completo", c4p:"Transporte, montaje, técnico especializado durante el evento y desmontaje posterior. Nos encargamos de todo.", c4t:"Todo incluido",
+    hw_l:"Proceso", hw_h:"Cómo funciona", hw_s:"De tu primer mensaje a una pantalla en vivo — simple y sin complicaciones.",
+    st1h:"Solicita presupuesto", st1p:"Rellena el formulario con los detalles de tu evento. Respondemos en menos de 24 horas con una propuesta personalizada.",
+    st2h:"Planificamos juntos", st2p:"Diseñamos la mejor configuración de pantalla para tu espacio, audiencia y objetivos.",
+    st3h:"Instalamos y damos soporte", st3p:"Transporte, instalación y soporte técnico en directo durante todo tu evento. Del montaje al desmontaje.",
+    gl_l:"Galería", gl_h:"Pantallas en acción",
+    g1:"Conciertos &amp; Festivales", g2:"Eventos Corporativos", g3:"Ferias &amp; Exposiciones",
+    g4:"Congresos", g5:"Outdoor &amp; Festivales", g6:"Espectáculos",
+    gb_h:"¿Tu evento es el próximo?", gb_s:"Diseñamos la configuración LED perfecta para tu espacio y audiencia.",
+    fm_l:"Presupuesto", fm_h:"Solicita tu presupuesto gratuito",
+    fm_s:"Cuéntanos tu evento y te respondemos en menos de 24 horas con una propuesta a medida.",
+    fl_name:"Nombre completo", fp_name:"Ana García",
+    fl_co:"Empresa", fp_co:"Nombre de tu empresa",
+    fl_email:"Email", fp_email:"tu@empresa.com",
+    fl_tel:"Teléfono", fp_tel:"+34 600 000 000",
+    fl_ev:"Tipo de evento", fl_sz:"Tamaño estimado",
+    fl_date:"Fecha del evento", fl_loc:"Ubicación", fp_loc:"Ciudad, País",
+    fl_msg:"Detalles adicionales", fp_msg:"Cuéntanos más sobre tu evento...",
+    f_btn:"Enviar solicitud de presupuesto",
+    f_note:"Sin compromiso · Respuesta en 24h · Datos protegidos",
+    f_ok:"¡Gracias! Nos pondremos en contacto en menos de 24 horas.",
+    p1h:"Respuesta en 24 horas", p1s:"Propuesta detallada y personalizada en menos de un día.",
+    p2h:"Sin compromiso", p2s:"Totalmente gratuito, sin ninguna obligación de contratar.",
+    p3h:"Europa, Oriente Medio y América", p3s:"Norte, Centro y Sur de América. Europa completa. Oriente Medio.",
+    ft_tag:"Light up every event. · Ilumina cada evento.",
+    ft_c:"Contacto", ft_s:"Síguenos", ft_lg:"Legal",
+    ft_pp:"Política de privacidad", ft_ck:"Política de cookies",
+    ft_cp:"© 2025 LETSLEDIT. Todos los derechos reservados.",
+    ev:["Tipo de evento","Conferencia / Congreso","Feria / Exposición","Concierto / Festival","Evento Corporativo","Lanzamiento de Producto","Evento Deportivo","Stand / Exhibición","Otro"],
+    sz:["Tamaño estimado","Pequeño (hasta 10m²)","Mediano (10–30m²)","Grande (30–60m²)","Extra Grande (+60m²)","No lo sé todavía"],
+    title:"LETSLEDIT — Bring Ideas to Light"
+  },
+  en:{
+    nav_cta:"Get a Quote",
+    badge:"EUROPE · MIDDLE EAST · AMERICAS · FULL SERVICE",
+    h1:"LED Screens That<br><em>Ignite</em><br>Every Event",
+    sub:"Full-service LED screen rental for events, trade shows and congresses. Transport, installation and on-site technical support included.",
+    cta1:"Get a Free Quote", cta2:"See our screens",
+    s1:"&amp; Outdoor", s2a:"Full", s2b:"Service", s3:"Continents", s4:"Response",
+    t1:"✓ Indoor &amp; Outdoor Screens", t2:"✓ Transport &amp; Installation Included",
+    t3:"✓ On-site Technical Support", t4:"✓ Europe, Middle East &amp; the Americas",
+    srv_l:"Our screens", srv_h:"LED Solutions for Every Event",
+    srv_s:"High resolution, adaptable brightness and custom configurations for any event format.",
+    c1h:"Indoor LED Screens", c1p:"Crystal-clear image quality for conferences, launches, congresses and corporate events. Fine pixel pitch for any viewing distance.",
+    c2h:"Outdoor LED Screens", c2p:"Ultra-bright weatherproof panels for festivals, open-air events and trade shows. Perfect visibility in direct sunlight.",
+    c3h:"Custom Videowalls", c3p:"Modular panels in any shape and size. From small stages to full arena configurations.", c3t:"Custom formats",
+    c4h:"Full Service", c4p:"Transport, installation, on-site technician throughout the event and dismantling. We handle everything.", c4t:"All included",
+    hw_l:"Process", hw_h:"How It Works", hw_s:"From your first message to a live screen at your event — simple and hassle-free.",
+    st1h:"Request a Quote", st1p:"Fill in the form with your event details. We respond within 24 hours with a personalised proposal.",
+    st2h:"We Plan Together", st2p:"We design the best screen configuration for your venue, audience and objectives.",
+    st3h:"We Install &amp; Support", st3p:"Transport, installation and live technical support throughout your entire event. From setup to breakdown.",
+    gl_l:"Gallery", gl_h:"Screens in Action",
+    g1:"Concerts &amp; Festivals", g2:"Corporate Events", g3:"Trade Shows &amp; Expos",
+    g4:"Congresses", g5:"Outdoor &amp; Festivals", g6:"Shows &amp; Spectacles",
+    gb_h:"Is your event next?", gb_s:"We design the perfect LED configuration for your venue and audience.",
+    fm_l:"Quote", fm_h:"Get Your Free Quote",
+    fm_s:"Tell us about your event and we'll get back to you within 24 hours with a tailored proposal.",
+    fl_name:"Full name", fp_name:"John Smith",
+    fl_co:"Company", fp_co:"Your company name",
+    fl_email:"Email address", fp_email:"you@company.com",
+    fl_tel:"Phone number", fp_tel:"+1 000 000 0000",
+    fl_ev:"Event type", fl_sz:"Estimated screen size",
+    fl_date:"Event date", fl_loc:"Event location", fp_loc:"City, Country",
+    fl_msg:"Additional details", fp_msg:"Tell us more about your event...",
+    f_btn:"Send Quote Request",
+    f_note:"No commitment · 24h response · Data protected",
+    f_ok:"Thank you! We'll be in touch within 24 hours.",
+    p1h:"24-hour response", p1s:"Detailed and personalised proposal within one business day.",
+    p2h:"No commitment", p2s:"Completely free quote with no obligation to book.",
+    p3h:"Europe, Middle East &amp; the Americas", p3s:"North, Central and South America. Full Europe. Middle East.",
+    ft_tag:"Light up every event.",
+    ft_c:"Contact", ft_s:"Follow us", ft_lg:"Legal",
+    ft_pp:"Privacy Policy", ft_ck:"Cookie Policy",
+    ft_cp:"© 2025 LETSLEDIT. All rights reserved.",
+    ev:["Event type","Conference / Congress","Trade Show / Exhibition","Concert / Festival","Corporate Event","Product Launch","Sports Event","Stand / Exhibition","Other"],
+    sz:["Estimated size","Small (up to 10m²)","Medium (10–30m²)","Large (30–60m²)","Extra Large (60m²+)","Not sure yet"],
+    title:"LETSLEDIT — Bring Ideas to Light"
+  },
+  fr:{
+    nav_cta:"Demander un devis",
+    badge:"EUROPE · MOYEN-ORIENT · AMÉRIQUES · SERVICE COMPLET",
+    h1:"Des Écrans LED qui<br><em>Enflamment</em><br>Chaque Événement",
+    sub:"Location d'écrans LED service complet pour événements, salons et congrès. Transport, installation et assistance technique inclus.",
+    cta1:"Demander un Devis Gratuit", cta2:"Voir nos écrans",
+    s1:"&amp; Outdoor", s2a:"Service", s2b:"Complet", s3:"Continents", s4:"Réponse",
+    t1:"✓ Écrans Indoor &amp; Outdoor", t2:"✓ Transport &amp; Installation Inclus",
+    t3:"✓ Assistance Technique Sur Site", t4:"✓ Europe, Moyen-Orient &amp; Amériques",
+    srv_l:"Nos écrans", srv_h:"Solutions LED pour Chaque Événement",
+    srv_s:"Haute résolution, luminosité adaptable et configurations sur mesure pour tout format d'événement.",
+    c1h:"Écrans LED Intérieur", c1p:"Qualité d'image exceptionnelle pour conférences, lancements, congrès et événements d'entreprise. Pixel pitch fin pour toute distance de vision.",
+    c2h:"Écrans LED Extérieur", c2p:"Panneaux ultra-lumineux et résistants aux intempéries pour festivals, événements en plein air et salons. Visibilité parfaite en plein soleil.",
+    c3h:"Videomurs Sur Mesure", c3p:"Panneaux modulaires dans toute forme et dimension. Des petites scènes aux configurations d'arène complète.", c3t:"Formats custom",
+    c4h:"Service Complet", c4p:"Transport, montage, technicien spécialisé pendant tout l'événement et démontage. Nous gérons tout.", c4t:"Tout inclus",
+    hw_l:"Processus", hw_h:"Comment ça marche", hw_s:"De votre premier message à un écran en direct — simple et sans tracas.",
+    st1h:"Demandez un devis", st1p:"Remplissez le formulaire avec les détails de votre événement. Nous répondons en moins de 24 heures.",
+    st2h:"Nous planifions ensemble", st2p:"Nous concevons la meilleure configuration d'écran pour votre espace, public et objectifs.",
+    st3h:"Nous installons &amp; assistons", st3p:"Transport, installation et assistance technique en direct tout au long de votre événement.",
+    gl_l:"Galerie", gl_h:"Écrans en Action",
+    g1:"Concerts &amp; Festivals", g2:"Événements d'Entreprise", g3:"Salons &amp; Expositions",
+    g4:"Congrès", g5:"Outdoor &amp; Festivals", g6:"Spectacles",
+    gb_h:"Votre événement est le prochain?", gb_s:"Nous concevons la configuration LED parfaite pour votre espace et votre public.",
+    fm_l:"Devis", fm_h:"Obtenez Votre Devis Gratuit",
+    fm_s:"Parlez-nous de votre événement et nous vous répondrons dans les 24 heures avec une proposition sur mesure.",
+    fl_name:"Nom complet", fp_name:"Jean Dupont",
+    fl_co:"Entreprise", fp_co:"Nom de votre entreprise",
+    fl_email:"Adresse e-mail", fp_email:"vous@entreprise.com",
+    fl_tel:"Téléphone", fp_tel:"+33 6 00 00 00 00",
+    fl_ev:"Type d'événement", fl_sz:"Taille estimée",
+    fl_date:"Date de l'événement", fl_loc:"Lieu de l'événement", fp_loc:"Ville, Pays",
+    fl_msg:"Détails supplémentaires", fp_msg:"Parlez-nous de votre événement...",
+    f_btn:"Envoyer la demande de devis",
+    f_note:"Sans engagement · Réponse en 24h · Données protégées",
+    f_ok:"Merci ! Nous vous contacterons dans les 24 heures.",
+    p1h:"Réponse en 24 heures", p1s:"Proposition détaillée et personnalisée en moins d'un jour.",
+    p2h:"Sans engagement", p2s:"Devis entièrement gratuit sans aucune obligation de réserver.",
+    p3h:"Europe, Moyen-Orient &amp; Amériques", p3s:"Amérique du Nord, Centrale et du Sud. Europe complète. Moyen-Orient.",
+    ft_tag:"Light up every event. · Illuminez chaque événement.",
+    ft_c:"Contact", ft_s:"Suivez-nous", ft_lg:"Légal",
+    ft_pp:"Politique de confidentialité", ft_ck:"Politique de cookies",
+    ft_cp:"© 2025 LETSLEDIT. Tous droits réservés.",
+    ev:["Type d'événement","Conférence / Congrès","Salon / Exposition","Concert / Festival","Événement d'Entreprise","Lancement de Produit","Événement Sportif","Stand / Exposition","Autre"],
+    sz:["Taille estimée","Petit (jusqu'à 10m²)","Moyen (10–30m²)","Grand (30–60m²)","Très Grand (+60m²)","Je ne sais pas encore"],
+    title:"LETSLEDIT — Bring Ideas to Light"
+  },
+  pt:{
+    nav_cta:"Pedir Orçamento",
+    badge:"EUROPA · MÉDIO ORIENTE · AMÉRICAS · SERVIÇO COMPLETO",
+    h1:"Telas LED que<br><em>Incendeiam</em><br>Cada Evento",
+    sub:"Aluguel de telas LED com serviço completo para eventos, feiras e congressos. Transporte, instalação e suporte técnico incluídos.",
+    cta1:"Pedir Orçamento Grátis", cta2:"Ver telas",
+    s1:"&amp; Outdoor", s2a:"Serviço", s2b:"Completo", s3:"Continentes", s4:"Resposta",
+    t1:"✓ Telas Indoor e Outdoor", t2:"✓ Transporte e Instalação Incluídos",
+    t3:"✓ Suporte Técnico no Local", t4:"✓ Europa, Médio Oriente e Américas",
+    srv_l:"Nossas telas", srv_h:"Soluções de LED para Cada Evento",
+    srv_s:"Alta resolução, luminosidade adaptável e configurações à medida para qualquer formato de evento.",
+    c1h:"Telas LED Indoor", c1p:"Qualidade de imagem excepcional para conferências, lançamentos, congressos e eventos corporativos. Pixel pitch fino para qualquer distância de visão.",
+    c2h:"Telas LED Outdoor", c2p:"Ultra-luminosos e resistentes às intempéries para festivais, feiras e espaços públicos. Visibilidade perfeita sob luz solar direta.",
+    c3h:"Videowalls Personalizados", c3p:"Painéis modulares em qualquer forma e dimensão. Desde pequenos palcos até configurações de arena completa.", c3t:"Formatos custom",
+    c4h:"Serviço Completo", c4p:"Transporte, montagem, técnico especializado durante todo o evento e desmontagem. Tratamos de tudo.", c4t:"Tudo incluído",
+    hw_l:"Processo", hw_h:"Como Funciona", hw_s:"Da sua primeira mensagem a uma tela ao vivo — simples e sem complicações.",
+    st1h:"Peça um Orçamento", st1p:"Preencha o formulário com os detalhes do seu evento. Respondemos em menos de 24 horas com uma proposta personalizada.",
+    st2h:"Planeamos Juntos", st2p:"Criamos a melhor configuração de tela para o seu espaço, público e objetivos.",
+    st3h:"Instalamos e Damos Suporte", st3p:"Transporte, instalação e suporte técnico em direto durante todo o evento. Do início ao fim.",
+    gl_l:"Galeria", gl_h:"Telas em Ação",
+    g1:"Concertos &amp; Festivais", g2:"Eventos Corporativos", g3:"Feiras &amp; Exposições",
+    g4:"Congressos", g5:"Outdoor &amp; Festivais", g6:"Espetáculos",
+    gb_h:"O seu evento é o próximo?", gb_s:"Desenhamos a configuração LED perfeita para o seu espaço e audiência.",
+    fm_l:"Orçamento", fm_h:"Peça Seu Orçamento Grátis",
+    fm_s:"Conte-nos o seu evento e respondemos em menos de 24 horas com uma proposta à medida.",
+    fl_name:"Nome completo", fp_name:"João Silva",
+    fl_co:"Empresa", fp_co:"Nome da sua empresa",
+    fl_email:"Email", fp_email:"voce@empresa.com",
+    fl_tel:"Telefone", fp_tel:"+351 900 000 000",
+    fl_ev:"Tipo de evento", fl_sz:"Tamanho estimado",
+    fl_date:"Data do evento", fl_loc:"Localização", fp_loc:"Cidade, País",
+    fl_msg:"Detalhes adicionais", fp_msg:"Conte-nos mais sobre o seu evento...",
+    f_btn:"Enviar Pedido de Orçamento",
+    f_note:"Sem compromisso · Resposta em 24h · Dados protegidos",
+    f_ok:"Obrigado! Entraremos em contacto em menos de 24 horas.",
+    p1h:"Resposta em 24 horas", p1s:"Proposta detalhada e personalizada em menos de um dia.",
+    p2h:"Sem compromisso", p2s:"Totalmente gratuito, sem qualquer obrigação de contratar.",
+    p3h:"Europa, Médio Oriente e Américas", p3s:"América do Norte, Central e do Sul. Europa completa. Médio Oriente.",
+    ft_tag:"Light up every event. · Ilumine cada evento!",
+    ft_c:"Contato", ft_s:"Siga-nos", ft_lg:"Legal",
+    ft_pp:"Política de Privacidade", ft_ck:"Política de Cookies",
+    ft_cp:"© 2025 LETSLEDIT. Todos os direitos reservados.",
+    ev:["Tipo de evento","Conferência / Congresso","Feira / Exposição","Concerto / Festival","Evento Corporativo","Lançamento de Produto","Evento Esportivo","Stand / Exposição","Outro"],
+    sz:["Tamanho estimado","Pequeno (até 10m²)","Médio (10–30m²)","Grande (30–60m²)","Extra Grande (+60m²)","Ainda não sei"],
+    title:"LETSLEDIT — Bring Ideas to Light"
+  },
+  tr:{
+    nav_cta:"Teklif İste",
+    badge:"AVRUPA · ORTA DOĞU · AMERİKA · TAM HİZMET",
+    h1:"Her Etkinliği<br><em>Işıklandıran</em><br>LED Ekranlar",
+    sub:"Etkinlikler, fuarlar ve kongreler için tam hizmetli LED ekran kiralama. Nakliye, kurulum ve yerinde teknik destek dahil.",
+    cta1:"Ücretsiz Teklif Al", cta2:"Ekranlarımızı gör",
+    s1:"&amp; Outdoor", s2a:"Tam", s2b:"Hizmet", s3:"Kıta", s4:"Yanıt",
+    t1:"✓ Indoor ve Outdoor Ekranlar", t2:"✓ Nakliye ve Kurulum Dahil",
+    t3:"✓ Yerinde Teknik Destek", t4:"✓ Avrupa, Orta Doğu ve Amerika",
+    srv_l:"Ekranlarımız", srv_h:"Her Etkinlik İçin LED Çözümler",
+    srv_s:"Yüksek çözünürlük, ayarlanabilir parlaklık ve her format için özel konfigürasyonlar.",
+    c1h:"Indoor LED Ekranlar", c1p:"Konferanslar, lansman etkinlikleri, kongreler ve kurumsal etkinlikler için kristal netliğinde görüntü kalitesi. Her izleme mesafesi için ince pixel pitch.",
+    c2h:"Outdoor LED Ekranlar", c2p:"Festivaller, açık hava etkinlikleri ve fuarlar için ultra parlak, hava koşullarına dayanıklı paneller. Doğrudan güneş ışığında mükemmel görünürlük.",
+    c3h:"Özel Video Duvarlar", c3p:"Her şekil ve boyutta modüler paneller. Küçük sahnelerden tam arena konfigürasyonlarına.", c3t:"Özel formatlar",
+    c4h:"Tam Hizmet", c4p:"Nakliye, kurulum, etkinlik boyunca yerinde teknisyen ve söküm. Her şeyi biz hallederiz.", c4t:"Hepsi dahil",
+    hw_l:"Süreç", hw_h:"Nasıl Çalışır", hw_s:"İlk mesajınızdan canlı ekrana — basit ve sorunsuz.",
+    st1h:"Teklif İsteyin", st1p:"Etkinlik detaylarınızı formla gönderin. 24 saat içinde kişiselleştirilmiş bir teklifle yanıt veririz.",
+    st2h:"Birlikte Planlıyoruz", st2p:"Mekanınız, kitleniz ve hedefleriniz için en iyi ekran konfigürasyonunu tasarlıyoruz.",
+    st3h:"Kuruyoruz &amp; Destekliyoruz", st3p:"Nakliye, kurulum ve etkinliğiniz boyunca canlı teknik destek. Başlangıçtan sonuna kadar.",
+    gl_l:"Galeri", gl_h:"Ekranlar Sahada",
+    g1:"Konserler &amp; Festivaller", g2:"Kurumsal Etkinlikler", g3:"Fuarlar &amp; Sergiler",
+    g4:"Kongreler", g5:"Outdoor &amp; Festivaller", g6:"Gösteriler",
+    gb_h:"Sıradaki etkinlik sizin mi?", gb_s:"Mekanınız ve kitleniz için mükemmel LED konfigürasyonunu tasarlıyoruz.",
+    fm_l:"Teklif", fm_h:"Ücretsiz Teklifinizi Alın",
+    fm_s:"Etkinliğinizi anlatın, 24 saat içinde size özel bir teklif sunalım.",
+    fl_name:"Ad Soyad", fp_name:"Ahmet Yılmaz",
+    fl_co:"Şirket", fp_co:"Şirket adınız",
+    fl_email:"E-posta", fp_email:"siz@sirket.com",
+    fl_tel:"Telefon", fp_tel:"+90 500 000 00 00",
+    fl_ev:"Etkinlik türü", fl_sz:"Tahmini ekran boyutu",
+    fl_date:"Etkinlik tarihi", fl_loc:"Etkinlik yeri", fp_loc:"Şehir, Ülke",
+    fl_msg:"Ek detaylar", fp_msg:"Etkinliğiniz hakkında daha fazla bilgi verin...",
+    f_btn:"Teklif Talebi Gönder",
+    f_note:"Taahhüt yok · 24 saat yanıt · Veriler korunur",
+    f_ok:"Teşekkürler! 24 saat içinde sizinle iletişime geçeceğiz.",
+    p1h:"24 saatte yanıt", p1s:"Bir iş günü içinde ayrıntılı ve kişiselleştirilmiş teklif.",
+    p2h:"Taahhüt yok", p2s:"Herhangi bir yükümlülük olmaksızın tamamen ücretsiz teklif.",
+    p3h:"Avrupa, Orta Doğu &amp; Amerika", p3s:"Kuzey, Orta ve Güney Amerika. Tüm Avrupa. Orta Doğu.",
+    ft_tag:"Light up every event. · Her etkinliği aydınlatın.",
+    ft_c:"İletişim", ft_s:"Bizi takip edin", ft_lg:"Yasal",
+    ft_pp:"Gizlilik Politikası", ft_ck:"Çerez Politikası",
+    ft_cp:"© 2025 LETSLEDIT. Tüm hakları saklıdır.",
+    ev:["Etkinlik türü","Konferans / Kongre","Fuar / Sergi","Konser / Festival","Kurumsal Etkinlik","Ürün Lansmanı","Spor Etkinliği","Stand / Sergi","Diğer"],
+    sz:["Tahmini boyut","Küçük (10m²'ye kadar)","Orta (10–30m²)","Büyük (30–60m²)","Çok Büyük (60m²+)","Henüz bilmiyorum"],
+    title:"LETSLEDIT — Bring Ideas to Light"
+  }
+};
+
+let lang = 'es';
+
+function setLang(l) {
+  lang = l;
+  const d = TX[l];
+  document.documentElement.lang = l;
+  document.title = d.title;
+
+  // Text / HTML
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const v = d[el.dataset.k];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  // Placeholders
+  document.querySelectorAll('[data-kp]').forEach(el => {
+    const v = d[el.dataset.kp];
+    if (v) el.placeholder = v;
+  });
+  // Selects
+  const ev = document.getElementById('evSel');
+  const sz = document.getElementById('szSel');
+  if (ev) ev.innerHTML = d.ev.map(o=>`<option>${o}</option>`).join('');
+  if (sz) sz.innerHTML = d.sz.map(o=>`<option>${o}</option>`).join('');
+  // Globe button label
+  const cur = document.getElementById('langCur');
+  if (cur) cur.textContent = l.toUpperCase();
+  // Nav dropdown active state
+  document.querySelectorAll('.lang-menu button[data-ll]').forEach(b => b.classList.toggle('on', b.dataset.ll === l));
+  // Footer lang active state
+  document.querySelectorAll('.ft-langs button[data-fll]').forEach(b => b.classList.toggle('on', b.dataset.fll === l));
+}
+
+function go(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+// Nav: solid after scrolling past hero
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('solid', window.scrollY > 60);
+}, {passive:true});
+
+// Form
+document.getElementById('qf').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.fsub');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    const r = await fetch(e.target.action, {
+      method:'POST', body:new FormData(e.target), headers:{Accept:'application/json'}
+    });
+    if (r.ok) {
+      e.target.style.display = 'none';
+      document.getElementById('fOk').style.display = 'block';
+    } else { btn.disabled = false; btn.innerHTML = TX[lang].f_btn; }
+  } catch { btn.disabled = false; btn.innerHTML = TX[lang].f_btn; }
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }});
+}, {threshold: 0.1});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+// ─── LANG DROPDOWN ─────────────────────────────────────────────────────────
+function toggleLangMenu() {
+  document.getElementById('langMenu').classList.toggle('open');
+}
+function closeLangMenu() {
+  document.getElementById('langMenu').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('#langSel')) closeLangMenu();
+});
+
+// ─── HERO CAROUSEL ─────────────────────────────────────────────────────────
+(function(){
+  const slides = document.querySelectorAll('#hcar .hslide');
+  const dots   = document.querySelectorAll('#hdots span');
+  let cur = 0, timer = null, paused = false;
+
+  function goSlide(n) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('on');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('on');
+  }
+  window.goSlide = goSlide; // expose for inline onclick
+
+  function next() { if (!paused) goSlide(cur + 1); }
+
+  function startTimer() { timer = setInterval(next, 5000); }
+  function stopTimer()  { clearInterval(timer); }
+
+  // Pause on hover so users can read the slide
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mouseenter', () => { paused = true; });
+  hero.addEventListener('mouseleave', () => { paused = false; });
+
+  startTimer();
+})();
+
+// Init
+setLang('es');
+</script>
+</body>
+</html>
