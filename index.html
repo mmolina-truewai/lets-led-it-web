@@ -8,6 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- ── Favicon — Brand Asset Kit v2.1 ── -->
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/icons/favicon.svg">
+  <!-- ── OpenGraph / Social ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="LETSLEDIT — Bring Ideas to Light">
+  <meta property="og:description" content="Alquiler de pantallas LED con servicio completo para eventos, ferias y congresos en Europa y América.">
+  <meta property="og:image" content="/assets/og-image.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.svg">
   <style>
     /* ─── BASE ──────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,11 +26,11 @@
     body  { font-family:'Exo 2',system-ui,sans-serif; background:#0a0a0a; color:var(--w); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
     /* ─── GRADIENT UTILITIES ─────────────────────────────────────────────── */
     .grad-text {
-      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      background:linear-gradient(135deg,var(--gp),var(--gv),var(--gc));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text;
     }
-    .grad-bg { background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc)); }
+    .grad-bg { background:linear-gradient(135deg,var(--gp),var(--gv),var(--gc)); }
     a     { color:inherit; text-decoration:none; }
     img   { display:block; width:100%; height:100%; object-fit:cover; }
     .C    { max-width:var(--mw); margin:0 auto; padding:0 32px; }
@@ -39,9 +49,9 @@
     }
     .nav-logo { display:flex; align-items:center; gap:10px; margin-right:auto; }
     .nav-logo svg { flex-shrink:0; }
-    .wm { font-size:17px; font-weight:400; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.85); }
-    .wm b { font-weight:800; color:var(--w); letter-spacing:2px; }
-    .wm-tag { font-size:9px; font-weight:300; letter-spacing:4px; color:rgba(255,255,255,.28); text-transform:uppercase; margin-top:2px; line-height:1; }
+    .wm { font-family:'Exo 2'; font-size:17px; font-weight:300; letter-spacing:2px; text-transform:uppercase; color:#ffffff; }
+    .wm b { font-weight:600; color:var(--w); letter-spacing:2px; }
+    .wm-tag { font-family:'Exo 2'; font-size:9px; font-weight:400; letter-spacing:4px; color:rgba(255,255,255,.28); text-transform:uppercase; margin-top:2px; line-height:1; }
 
     /* ─── LANG DROPDOWN ────────────────────────────────────────────────────── */
     .lang-sel { position:relative; }
@@ -164,7 +174,7 @@
       font-size:clamp(48px,8vw,96px); font-weight:900;
       line-height:1.0; letter-spacing:-3px; color:var(--w); margin-bottom:28px;
     }
-    h1 em { font-style:normal; background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    h1 em { font-style:normal; color:var(--y); }
     .hero-tagline {
       font-size:13px; font-weight:300; letter-spacing:5px; text-transform:uppercase;
       color:rgba(255,255,255,.38); margin-bottom:28px; margin-top:-10px;
@@ -212,9 +222,7 @@
     .sec-label {
       font-size:11px; font-weight:700; text-transform:uppercase;
       letter-spacing:.1em; margin-bottom:14px; display:block;
-      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text;
+      color:var(--y);
     }
     h2 {
       font-size:clamp(30px,4.5vw,54px); font-weight:800;
@@ -249,8 +257,8 @@
     .card p  { font-size:14px; color:rgba(255,255,255,.5); line-height:1.75; }
     .tag {
       display:inline-block; margin-top:18px;
-      font-size:11px; font-weight:700; color:var(--w);
-      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
+      font-size:11px; font-weight:700; color:var(--bk);
+      background:var(--y);
       padding:5px 12px; border-radius:5px; letter-spacing:.04em;
     }
 
@@ -271,15 +279,13 @@
     .step:last-child  { border-radius:0 16px 16px 0; }
     .step-bar {
       position:absolute; top:0; left:0; right:0; height:3px;
-      background:linear-gradient(90deg,var(--gp),var(--gv),var(--gc)); transform:scaleX(0); transform-origin:left;
+      background:linear-gradient(135deg,var(--gp),var(--gv),var(--gc)); transform:scaleX(0); transform-origin:left;
       transition:transform .3s; border-radius:3px 3px 0 0;
     }
     .step:hover .step-bar { transform:scaleX(1); }
     .snum {
       font-size:68px; font-weight:900; line-height:1; margin-bottom:18px; letter-spacing:-3px;
-      background:linear-gradient(110deg,rgba(255,0,168,.22),rgba(122,43,255,.22),rgba(0,194,255,.22));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text;
+      color:rgba(0,194,255,.13);
     }
     .step h3 { font-size:19px; font-weight:700; color:var(--w); margin-bottom:12px; }
     .step p  { font-size:14px; color:rgba(255,255,255,.45); line-height:1.8; }
@@ -322,9 +328,6 @@
     .gal-banner .inner { z-index:2; text-align:center; }
     .gal-banner h2 {
       font-size:clamp(28px,5vw,62px); letter-spacing:-2px;
-      background:linear-gradient(110deg,var(--gp),var(--gv),var(--gc));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text;
     }
     .gal-banner p  { font-size:17px; color:rgba(255,255,255,.58); margin-top:12px; font-weight:300; }
     /* Strip */
@@ -511,14 +514,21 @@
 <!-- ── NAV (floating, transparent on hero) ──────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-logo">
-    <!-- Pixel matrix icon: 6×6 square, diagonal gradient pink→purple→cyan -->
+    <!-- Pixel matrix icon: 6×6 square, single shared gradient TL→BR per Brand Asset Kit v2.1 -->
     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="width:34px;height:34px;flex-shrink:0">
-      <circle cx="4" cy="4" r="3.0" fill="#FF00A8"/><circle cx="12" cy="4" r="3.0" fill="#E409B9"/><circle cx="20" cy="4" r="3.0" fill="#CA11CB"/><circle cx="28" cy="4" r="3.0" fill="#AF1ADC"/><circle cx="36" cy="4" r="3.0" fill="#9522EE"/><circle cx="44" cy="4" r="3.0" fill="#7A2BFF"/>
-      <circle cx="4" cy="12" r="3.0" fill="#E409B9"/><circle cx="12" cy="12" r="3.0" fill="#CA11CB"/><circle cx="20" cy="12" r="3.0" fill="#AF1ADC"/><circle cx="28" cy="12" r="3.0" fill="#9522EE"/><circle cx="36" cy="12" r="3.0" fill="#7A2BFF"/><circle cx="44" cy="12" r="3.0" fill="#6249FF"/>
-      <circle cx="4" cy="20" r="3.0" fill="#CA11CB"/><circle cx="12" cy="20" r="3.0" fill="#AF1ADC"/><circle cx="20" cy="20" r="3.0" fill="#9522EE"/><circle cx="28" cy="20" r="3.0" fill="#7A2BFF"/><circle cx="36" cy="20" r="3.0" fill="#6249FF"/><circle cx="44" cy="20" r="3.0" fill="#4967FF"/>
-      <circle cx="4" cy="28" r="3.0" fill="#AF1ADC"/><circle cx="12" cy="28" r="3.0" fill="#9522EE"/><circle cx="20" cy="28" r="3.0" fill="#7A2BFF"/><circle cx="28" cy="28" r="3.0" fill="#6249FF"/><circle cx="36" cy="28" r="3.0" fill="#4967FF"/><circle cx="44" cy="28" r="3.0" fill="#3186FF"/>
-      <circle cx="4" cy="36" r="3.0" fill="#9522EE"/><circle cx="12" cy="36" r="3.0" fill="#7A2BFF"/><circle cx="20" cy="36" r="3.0" fill="#6249FF"/><circle cx="28" cy="36" r="3.0" fill="#4967FF"/><circle cx="36" cy="36" r="3.0" fill="#3186FF"/><circle cx="44" cy="36" r="3.0" fill="#18A4FF"/>
-      <circle cx="4" cy="44" r="3.0" fill="#7A2BFF"/><circle cx="12" cy="44" r="3.0" fill="#6249FF"/><circle cx="20" cy="44" r="3.0" fill="#4967FF"/><circle cx="28" cy="44" r="3.0" fill="#3186FF"/><circle cx="36" cy="44" r="3.0" fill="#18A4FF"/><circle cx="44" cy="44" r="3.0" fill="#00C2FF"/>
+      <defs>
+        <linearGradient id="sg-nav" x1="1" y1="1" x2="47" y2="47" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FF00A8"/>
+          <stop offset="50%" stop-color="#7A2BFF"/>
+          <stop offset="100%" stop-color="#00C2FF"/>
+        </linearGradient>
+      </defs>
+      <circle cx="4" cy="4" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="4" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="4" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="4" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="4" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="4" r="3.0" fill="url(#sg-nav)"/>
+      <circle cx="4" cy="12" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="12" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="12" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="12" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="12" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="12" r="3.0" fill="url(#sg-nav)"/>
+      <circle cx="4" cy="20" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="20" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="20" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="20" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="20" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="20" r="3.0" fill="url(#sg-nav)"/>
+      <circle cx="4" cy="28" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="28" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="28" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="28" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="28" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="28" r="3.0" fill="url(#sg-nav)"/>
+      <circle cx="4" cy="36" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="36" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="36" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="36" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="36" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="36" r="3.0" fill="url(#sg-nav)"/>
+      <circle cx="4" cy="44" r="3.0" fill="url(#sg-nav)"/><circle cx="12" cy="44" r="3.0" fill="url(#sg-nav)"/><circle cx="20" cy="44" r="3.0" fill="url(#sg-nav)"/><circle cx="28" cy="44" r="3.0" fill="url(#sg-nav)"/><circle cx="36" cy="44" r="3.0" fill="url(#sg-nav)"/><circle cx="44" cy="44" r="3.0" fill="url(#sg-nav)"/>
     </svg>
     <div>
       <div class="wm">LETS<b>LED</b>IT</div>
@@ -760,8 +770,9 @@
       </div>
 
       <div class="fcard rv">
-        <!-- Registra en formspree.io y reemplaza YOUR_FORM_ID con tu ID -->
-        <form id="qf" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form id="qf" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="55f80928-84f6-43b9-af06-a26c706b51d9">
+          <input type="hidden" name="subject" value="Nueva solicitud de presupuesto — LETSLEDIT">
           <div class="frow">
             <div class="fg"><label data-k="fl_name">Nombre completo</label><input type="text" name="name" required data-kp="fp_name"></div>
             <div class="fg"><label data-k="fl_co">Empresa</label><input type="text" name="company" data-kp="fp_co"></div>
@@ -789,22 +800,30 @@
       <div class="fb">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
           <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" style="width:30px;height:30px;flex-shrink:0">
-            <circle cx="4" cy="4" r="3.0" fill="#FF00A8"/><circle cx="12" cy="4" r="3.0" fill="#E409B9"/><circle cx="20" cy="4" r="3.0" fill="#CA11CB"/><circle cx="28" cy="4" r="3.0" fill="#AF1ADC"/><circle cx="36" cy="4" r="3.0" fill="#9522EE"/><circle cx="44" cy="4" r="3.0" fill="#7A2BFF"/>
-            <circle cx="4" cy="12" r="3.0" fill="#E409B9"/><circle cx="12" cy="12" r="3.0" fill="#CA11CB"/><circle cx="20" cy="12" r="3.0" fill="#AF1ADC"/><circle cx="28" cy="12" r="3.0" fill="#9522EE"/><circle cx="36" cy="12" r="3.0" fill="#7A2BFF"/><circle cx="44" cy="12" r="3.0" fill="#6249FF"/>
-            <circle cx="4" cy="20" r="3.0" fill="#CA11CB"/><circle cx="12" cy="20" r="3.0" fill="#AF1ADC"/><circle cx="20" cy="20" r="3.0" fill="#9522EE"/><circle cx="28" cy="20" r="3.0" fill="#7A2BFF"/><circle cx="36" cy="20" r="3.0" fill="#6249FF"/><circle cx="44" cy="20" r="3.0" fill="#4967FF"/>
-            <circle cx="4" cy="28" r="3.0" fill="#AF1ADC"/><circle cx="12" cy="28" r="3.0" fill="#9522EE"/><circle cx="20" cy="28" r="3.0" fill="#7A2BFF"/><circle cx="28" cy="28" r="3.0" fill="#6249FF"/><circle cx="36" cy="28" r="3.0" fill="#4967FF"/><circle cx="44" cy="28" r="3.0" fill="#3186FF"/>
-            <circle cx="4" cy="36" r="3.0" fill="#9522EE"/><circle cx="12" cy="36" r="3.0" fill="#7A2BFF"/><circle cx="20" cy="36" r="3.0" fill="#6249FF"/><circle cx="28" cy="36" r="3.0" fill="#4967FF"/><circle cx="36" cy="36" r="3.0" fill="#3186FF"/><circle cx="44" cy="36" r="3.0" fill="#18A4FF"/>
-            <circle cx="4" cy="44" r="3.0" fill="#7A2BFF"/><circle cx="12" cy="44" r="3.0" fill="#6249FF"/><circle cx="20" cy="44" r="3.0" fill="#4967FF"/><circle cx="28" cy="44" r="3.0" fill="#3186FF"/><circle cx="36" cy="44" r="3.0" fill="#18A4FF"/><circle cx="44" cy="44" r="3.0" fill="#00C2FF"/>
+            <defs>
+              <linearGradient id="sg-footer" x1="1" y1="1" x2="47" y2="47" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF00A8"/>
+                <stop offset="50%" stop-color="#7A2BFF"/>
+                <stop offset="100%" stop-color="#00C2FF"/>
+              </linearGradient>
+            </defs>
+            <circle cx="4" cy="4" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="4" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="4" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="4" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="4" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="4" r="3.0" fill="url(#sg-footer)"/>
+            <circle cx="4" cy="12" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="12" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="12" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="12" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="12" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="12" r="3.0" fill="url(#sg-footer)"/>
+            <circle cx="4" cy="20" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="20" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="20" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="20" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="20" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="20" r="3.0" fill="url(#sg-footer)"/>
+            <circle cx="4" cy="28" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="28" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="28" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="28" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="28" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="28" r="3.0" fill="url(#sg-footer)"/>
+            <circle cx="4" cy="36" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="36" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="36" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="36" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="36" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="36" r="3.0" fill="url(#sg-footer)"/>
+            <circle cx="4" cy="44" r="3.0" fill="url(#sg-footer)"/><circle cx="12" cy="44" r="3.0" fill="url(#sg-footer)"/><circle cx="20" cy="44" r="3.0" fill="url(#sg-footer)"/><circle cx="28" cy="44" r="3.0" fill="url(#sg-footer)"/><circle cx="36" cy="44" r="3.0" fill="url(#sg-footer)"/><circle cx="44" cy="44" r="3.0" fill="url(#sg-footer)"/>
           </svg>
           <div class="wm" style="font-size:20px;">LETS<b>LED</b>IT</div>
         </div>
-        <p style="font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.25);font-weight:300;text-transform:uppercase;margin-bottom:8px">Bring Ideas to Light</p>
+        <p style="font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.25);font-weight:400;text-transform:uppercase;margin-bottom:8px">Bring Ideas to Light</p>
         <p data-k="ft_tag">Light up every event. · Ilumina cada evento.</p>
       </div>
       <div class="fl">
         <strong data-k="ft_c">Contacto</strong>
-        <a href="mailto:info@letsledit.com">info@letsledit.com</a>
-        <a href="tel:+34000000000">+34 000 000 000</a>
+        <a href="mailto:hello@letsledit.com">hello@letsledit.com</a>
+        <a href="tel:+34648572411">+34 648 572 411</a>
+        <a href="tel:+34686225509">+34 686 225 509</a>
       </div>
       <div class="fl">
         <strong data-k="ft_s">Síguenos</strong>
@@ -818,7 +837,7 @@
       </div>
     </div>
     <div class="fbot">
-      <span class="fcopy" data-k="ft_cp">© 2025 LETSLEDIT. Todos los derechos reservados.</span>
+      <span class="fcopy" data-k="ft_cp">© 2026 LETSLEDIT. Todos los derechos reservados.</span>
       <div class="ft-langs">
         <button onclick="setLang('es')" data-fll="es" class="on">ES</button>
         <button onclick="setLang('en')" data-fll="en">EN</button>
@@ -874,7 +893,7 @@ const TX = {
     ft_tag:"Light up every event. · Ilumina cada evento.",
     ft_c:"Contacto", ft_s:"Síguenos", ft_lg:"Legal",
     ft_pp:"Política de privacidad", ft_ck:"Política de cookies",
-    ft_cp:"© 2025 LETSLEDIT. Todos los derechos reservados.",
+    ft_cp:"© 2026 LETSLEDIT. Todos los derechos reservados.",
     ev:["Tipo de evento","Conferencia / Congreso","Feria / Exposición","Concierto / Festival","Evento Corporativo","Lanzamiento de Producto","Evento Deportivo","Stand / Exhibición","Otro"],
     sz:["Tamaño estimado","Pequeño (hasta 10m²)","Mediano (10–30m²)","Grande (30–60m²)","Extra Grande (+60m²)","No lo sé todavía"],
     title:"LETSLEDIT — Bring Ideas to Light"
@@ -920,7 +939,7 @@ const TX = {
     ft_tag:"Light up every event.",
     ft_c:"Contact", ft_s:"Follow us", ft_lg:"Legal",
     ft_pp:"Privacy Policy", ft_ck:"Cookie Policy",
-    ft_cp:"© 2025 LETSLEDIT. All rights reserved.",
+    ft_cp:"© 2026 LETSLEDIT. All rights reserved.",
     ev:["Event type","Conference / Congress","Trade Show / Exhibition","Concert / Festival","Corporate Event","Product Launch","Sports Event","Stand / Exhibition","Other"],
     sz:["Estimated size","Small (up to 10m²)","Medium (10–30m²)","Large (30–60m²)","Extra Large (60m²+)","Not sure yet"],
     title:"LETSLEDIT — Bring Ideas to Light"
@@ -966,7 +985,7 @@ const TX = {
     ft_tag:"Light up every event. · Illuminez chaque événement.",
     ft_c:"Contact", ft_s:"Suivez-nous", ft_lg:"Légal",
     ft_pp:"Politique de confidentialité", ft_ck:"Politique de cookies",
-    ft_cp:"© 2025 LETSLEDIT. Tous droits réservés.",
+    ft_cp:"© 2026 LETSLEDIT. Tous droits réservés.",
     ev:["Type d'événement","Conférence / Congrès","Salon / Exposition","Concert / Festival","Événement d'Entreprise","Lancement de Produit","Événement Sportif","Stand / Exposition","Autre"],
     sz:["Taille estimée","Petit (jusqu'à 10m²)","Moyen (10–30m²)","Grand (30–60m²)","Très Grand (+60m²)","Je ne sais pas encore"],
     title:"LETSLEDIT — Bring Ideas to Light"
@@ -1012,7 +1031,7 @@ const TX = {
     ft_tag:"Light up every event. · Ilumine cada evento!",
     ft_c:"Contato", ft_s:"Siga-nos", ft_lg:"Legal",
     ft_pp:"Política de Privacidade", ft_ck:"Política de Cookies",
-    ft_cp:"© 2025 LETSLEDIT. Todos os direitos reservados.",
+    ft_cp:"© 2026 LETSLEDIT. Todos os direitos reservados.",
     ev:["Tipo de evento","Conferência / Congresso","Feira / Exposição","Concerto / Festival","Evento Corporativo","Lançamento de Produto","Evento Esportivo","Stand / Exposição","Outro"],
     sz:["Tamanho estimado","Pequeno (até 10m²)","Médio (10–30m²)","Grande (30–60m²)","Extra Grande (+60m²)","Ainda não sei"],
     title:"LETSLEDIT — Bring Ideas to Light"
@@ -1058,7 +1077,7 @@ const TX = {
     ft_tag:"Light up every event. · Her etkinliği aydınlatın.",
     ft_c:"İletişim", ft_s:"Bizi takip edin", ft_lg:"Yasal",
     ft_pp:"Gizlilik Politikası", ft_ck:"Çerez Politikası",
-    ft_cp:"© 2025 LETSLEDIT. Tüm hakları saklıdır.",
+    ft_cp:"© 2026 LETSLEDIT. Tüm hakları saklıdır.",
     ev:["Etkinlik türü","Konferans / Kongre","Fuar / Sergi","Konser / Festival","Kurumsal Etkinlik","Ürün Lansmanı","Spor Etkinliği","Stand / Sergi","Diğer"],
     sz:["Tahmini boyut","Küçük (10m²'ye kadar)","Orta (10–30m²)","Büyük (30–60m²)","Çok Büyük (60m²+)","Henüz bilmiyorum"],
     title:"LETSLEDIT — Bring Ideas to Light"
