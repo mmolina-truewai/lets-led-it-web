@@ -506,6 +506,47 @@
       .pill { display:none; } /* en 375px el badge se corta — mejor ocultarlo */
       #hero .inner { padding-top:100px; padding-bottom:52px; }
     }
+
+    /* ─── MODALES ────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0; z-index:9000;
+      background:rgba(0,0,0,.82); backdrop-filter:blur(4px);
+      align-items:center; justify-content:center; padding:20px;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal-box {
+      background:#111; border:1px solid rgba(255,255,255,.1);
+      border-radius:16px; max-width:660px; width:100%;
+      max-height:82vh; overflow-y:auto; padding:48px;
+      position:relative;
+    }
+    .modal-box h2 { font-size:22px; font-weight:700; color:#fff; margin-bottom:28px; }
+    .modal-box h3 { font-size:11px; font-weight:700; color:var(--y); text-transform:uppercase; letter-spacing:.08em; margin:24px 0 8px; }
+    .modal-box p  { font-size:14px; color:rgba(255,255,255,.55); line-height:1.75; margin-bottom:12px; }
+    .modal-box a  { color:var(--y); text-decoration:underline; }
+    .modal-close {
+      position:absolute; top:16px; right:16px; width:32px; height:32px;
+      background:rgba(255,255,255,.08); border:none; border-radius:50%;
+      color:#fff; font-size:20px; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; line-height:1;
+    }
+    .modal-close:hover { background:rgba(255,255,255,.16); }
+    .modal-last { font-size:11px; color:rgba(255,255,255,.2); margin-top:28px; }
+
+    /* ─── BANNER COOKIES ─────────────────────────────────────────────── */
+    #ck-banner {
+      position:fixed; bottom:0; left:0; right:0; z-index:8000;
+      background:#0f0f0f; border-top:1px solid rgba(255,255,255,.1);
+      padding:18px 32px; display:flex; align-items:center;
+      gap:24px; flex-wrap:wrap;
+    }
+    #ck-banner p { font-size:13px; color:rgba(255,255,255,.5); flex:1; min-width:200px; line-height:1.6; margin:0; }
+    #ck-banner a { color:var(--y); text-decoration:underline; cursor:pointer; }
+    #ck-banner .ck-btn {
+      background:var(--y); color:#000; border:none; padding:9px 22px;
+      border-radius:6px; font-size:13px; font-weight:700; cursor:pointer;
+      white-space:nowrap; letter-spacing:.03em; font-family:inherit;
+    }
   </style>
 </head>
 <body>
@@ -832,8 +873,8 @@
       </div>
       <div class="fl">
         <strong data-k="ft_lg">Legal</strong>
-        <a href="#" data-k="ft_pp">Política de privacidad</a>
-        <a href="#" data-k="ft_ck">Política de cookies</a>
+        <a href="#" onclick="openModal('modal-pp');return false;" data-k="ft_pp">Política de privacidad</a>
+        <a href="#" onclick="openModal('modal-ck');return false;" data-k="ft_ck">Política de cookies</a>
       </div>
     </div>
     <div class="fbot">
@@ -1186,6 +1227,81 @@ document.addEventListener('click', e => {
 
 // Init
 setLang('es');
+
+// ─── MODALES ───────────────────────────────────────────────────────────
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    document.body.style.overflow = '';
+  }
+});
+
+// ─── BANNER COOKIES ────────────────────────────────────────────────────
+function dismissBanner() {
+  document.getElementById('ck-banner').style.display = 'none';
+  try { sessionStorage.setItem('ck_ok','1'); } catch(e) {}
+}
+(function(){
+  try { if (sessionStorage.getItem('ck_ok')) document.getElementById('ck-banner').style.display='none'; } catch(e) {}
+})();
 </script>
+
+<!-- ── MODAL: POLÍTICA DE PRIVACIDAD ─────────────────────────────────── -->
+<div class="modal-overlay" id="modal-pp" onclick="if(event.target===this)closeModal('modal-pp')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-pp')" aria-label="Cerrar">×</button>
+    <h2>Política de Privacidad</h2>
+    <h3>Responsable del tratamiento</h3>
+    <p>LETSLEDIT S.L. &mdash; CIF: [pendiente de completar]<br>
+    Calle Félix Candela 47-57, 28055 Madrid, España<br>
+    <a href="mailto:hello@letsledit.com">hello@letsledit.com</a></p>
+    <h3>Datos que recogemos</h3>
+    <p>A través del formulario de solicitud de presupuesto recogemos: nombre, empresa, correo electrónico, teléfono, tipo de evento, tamaño de pantalla, fecha del evento, ubicación y detalles adicionales.</p>
+    <h3>Finalidad y base jurídica</h3>
+    <p>El tratamiento tiene como finalidad atender su solicitud de presupuesto y mantener la comunicación comercial precontractual. La base jurídica es el art. 6.1.b) del RGPD (ejecución de medidas precontractuales a petición del interesado).</p>
+    <h3>Destinatarios</h3>
+    <p>Los datos son transmitidos a Web3Forms (web3forms.com), proveedor de servicios de formularios web que actúa como encargado del tratamiento. No cedemos datos a terceros salvo obligación legal.</p>
+    <h3>Conservación</h3>
+    <p>Los datos se conservarán durante el tiempo necesario para gestionar su solicitud y, en su caso, la relación comercial posterior, así como durante los plazos legales aplicables.</p>
+    <h3>Transferencias internacionales</h3>
+    <p>Web3Forms puede procesar datos fuera del Espacio Económico Europeo. Las transferencias están amparadas por las garantías adecuadas previstas en el RGPD.</p>
+    <h3>Sus derechos</h3>
+    <p>Puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a <a href="mailto:hello@letsledit.com">hello@letsledit.com</a>. Tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+    <p class="modal-last">Última actualización: agosto de 2026</p>
+  </div>
+</div>
+
+<!-- ── MODAL: POLÍTICA DE COOKIES ─────────────────────────────────────── -->
+<div class="modal-overlay" id="modal-ck" onclick="if(event.target===this)closeModal('modal-ck')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-ck')" aria-label="Cerrar">×</button>
+    <h2>Política de Cookies</h2>
+    <h3>¿Qué son las cookies?</h3>
+    <p>Las cookies son pequeños ficheros de texto que los sitios web almacenan en su dispositivo para recordar preferencias o registrar el uso del sitio.</p>
+    <h3>¿Usa este sitio web cookies?</h3>
+    <p>Este sitio web no instala cookies propias de seguimiento, análisis ni publicidad. No rastreamos su actividad ni compartimos datos de navegación con redes publicitarias.</p>
+    <p>El servicio de formularios (Web3Forms) puede utilizar cookies técnicas estrictamente necesarias para el procesamiento de su solicitud de presupuesto. Estas cookies son temporales y no requieren su consentimiento bajo la normativa aplicable.</p>
+    <h3>Cookies de terceros</h3>
+    <p>En la actualidad no integramos ningún servicio de terceros que instale cookies en su dispositivo (no utilizamos Google Analytics, Meta Pixel ni herramientas similares).</p>
+    <h3>Gestión de cookies</h3>
+    <p>Puede configurar su navegador para bloquear o eliminar cookies en cualquier momento. Consulte la ayuda de su navegador para obtener instrucciones específicas.</p>
+    <p class="modal-last">Última actualización: agosto de 2026</p>
+  </div>
+</div>
+
+<!-- ── BANNER COOKIES ─────────────────────────────────────────────────── -->
+<div id="ck-banner">
+  <p>Este sitio no usa cookies de seguimiento. El formulario de contacto emplea cookies técnicas estrictamente necesarias. <a onclick="openModal('modal-ck')">Política de cookies</a></p>
+  <button class="ck-btn" onclick="dismissBanner()">Entendido</button>
+</div>
+
 </body>
 </html>
